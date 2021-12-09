@@ -17,3 +17,6 @@ spring:
 visualcrossing:
   url: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
   key: ${VISUAL_KEY}
+
+weatherapi:
+  url: "http://localhost:8083/api/weather/"

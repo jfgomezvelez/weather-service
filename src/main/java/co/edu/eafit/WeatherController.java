@@ -16,11 +16,8 @@ import java.time.LocalTime;
 @RequestMapping(value = "/api")
 public class WeatherController {
 
-    @Value("${visualcrossing.url}")
+    @Value("${weatherapi.url}")
     private String url;
-
-    @Value("${visualcrossing.key}")
-    private String key;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -41,7 +38,7 @@ public class WeatherController {
                 FeatureType.BASICONLYHTTP.toString()
         );
 
-        String weather = restTemplate.getForObject(url.concat(location).concat("?unitGroup=metric&key=").concat(key), String.class);
+        String weather = restTemplate.getForObject(url.concat(location), String.class);
 
         process.setFinishDate(LocalTime.now());
         process.setDataSize(weather.length());
