@@ -30,10 +30,10 @@ public class MessagePattern {
     private RabbitTemplate rabbitTemplate;
 
     @RabbitListener(bindings = @QueueBinding(value = @Queue(
-            value = "weather.response.queue"
+            value = "weather.services.queue"
     ),
-            exchange = @Exchange(value = "weather.response.exchange", type = ExchangeTypes.TOPIC),
-            key = "weather.response")
+            exchange = @Exchange(value = "weather.exchange", type = ExchangeTypes.TOPIC),
+            key = "weather.query.response")
     )
     public void receive(Message message) {
         String data = new String(message.getBody());
@@ -59,9 +59,9 @@ public class MessagePattern {
 
         log.info("Enviando evento "
                 .concat(location)
-                .concat(" a ").concat("weather.response.exchange")
+                .concat(" a ").concat("weather.exchange")
                 .concat(":")
-                .concat("weather.response ")
+                .concat("weather.query ")
                 .concat("messageId")
                 .concat(process.getId())
         );
@@ -71,10 +71,11 @@ public class MessagePattern {
 
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setMessageId(process.getId());
+        messageProperties.setReplyTo("weather.query.response");
 
         Message message = new Message(data, messageProperties);
 
-        rabbitTemplate.convertAndSend("weather.request.exchange", "weather.request", message);
+        rabbitTemplate.convertAndSend("weather.exchange", "weather.query", message);
 
         statisticRepository.save(process);
     }
