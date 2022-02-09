@@ -13,7 +13,7 @@ import java.time.LocalTime;
 
 @RestController
 
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/service")
 public class WeatherController {
 
     @Value("${weatherapi.url}")
