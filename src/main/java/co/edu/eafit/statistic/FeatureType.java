@@ -2,7 +2,7 @@ package co.edu.eafit.statistic;
 
 public enum FeatureType {
 
-    BASICRabbitMQMessagePattern("BasicRabbitMQMessagePatternAutoACK");
+    BASICRabbitMQMessagePattern("BasicRabbitMQMessagePatternFullPerformance");
 
     private final String type;
 
